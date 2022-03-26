@@ -21,6 +21,9 @@ gridSizeSlider.addEventListener('change', updateGrid);
 sketchContainer.addEventListener('mouseenter', disablePainting);
 sketchContainer.addEventListener('mouseleave', disablePainting);
 clearViewBtn.addEventListener('click', editAllChildren);
+eraser.addEventListener('change', eraserChecked);
+rainbowBrush.addEventListener('change', rainbowChecked);
+window.addEventListener('load', initialize);
 
 // Event functions 
 
@@ -46,6 +49,22 @@ function updateGrid() {
 
 function updateSliderOutput() {
   gridSizeSliderOutput.textContent = `${gridSizeSlider.value} x ${gridSizeSlider.value}`;
+}
+
+function eraserChecked() {
+  if(eraser.checked) {
+    if(rainbowBrush.checked) {
+      rainbowBrush.checked = false;
+    }
+  }
+}
+
+function rainbowChecked() {
+  if(rainbowBrush.checked) {
+    if(eraser.checked) {
+      eraser.checked = false;
+    }
+  }
 }
 
 // paint management 
@@ -111,5 +130,7 @@ function buildSketch(gridSize) {
 
 // Default value 
 
-gridSizeSliderOutput.textContent = `${gridSizeSlider.value} x ${gridSizeSlider.value}`;
-buildSketch(gridSizeSlider.value);
+function initialize() {
+  gridSizeSliderOutput.textContent = `${gridSizeSlider.value} x ${gridSizeSlider.value}`;
+  buildSketch(gridSizeSlider.value);
+}
