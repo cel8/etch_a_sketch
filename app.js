@@ -48,7 +48,7 @@ function updateGrid() {
 }
 
 function updateSliderOutput() {
-  gridSizeSliderOutput.textContent = `${gridSizeSlider.value} x ${gridSizeSlider.value}`;
+  gridSizeSliderOutput.textContent = `Grid size: ${gridSizeSlider.value} x ${gridSizeSlider.value}`;
 }
 
 function eraserChecked() {
@@ -131,6 +131,6 @@ function buildSketch(gridSize) {
 // Default value 
 
 function initialize() {
-  gridSizeSliderOutput.textContent = `${gridSizeSlider.value} x ${gridSizeSlider.value}`;
+  updateSliderOutput();
   buildSketch(gridSizeSlider.value);
 }

@@ -10,9 +10,17 @@ html, body {
   flex-direction: column;
 }
 
-#menu {
+.menu {
   display: flex;
   flex-direction: column;
+  padding: 2%;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 20px
+}
+
+.menu-center {
+  align-self: center;
 }
 
 .sketch-container {
@@ -46,4 +54,21 @@ html, body {
   display: flex;
 }
 
-a { color: inherit; } 
+input[type='color'] {
+  -webkit-appearance: none;
+  width: 40px;
+  height: 40px;
+  border: none;
+}
+
+input[type='color']::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+input[type='color']::-webkit-color-swatch {
+  border: none;
+}
+
+a { 
+  color: inherit; 
+}

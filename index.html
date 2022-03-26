@@ -11,23 +11,26 @@
 </head>
 <body>
   <div class="container">
-    <div id="menu">
+    <div class="menu">
       <label for="eraser-selector">
-        <input type="color" id="eraser-selector" name="eraser-selector" value="#ffffff">Eraser selector
+        <input type="color" id="eraser-selector" name="eraser-selector" value="#ffffff">
+        Eraser selector
       </label>
       <label for="brush-selector">
-        <input type="color" id="brush-selector" name="brush-selector" value="#000000">Brush selector
+        <input type="color" id="brush-selector" name="brush-selector" value="#000000">
+        Brush selector
       </label>
       <label for="eraser-checkbox">
-        <input type="checkbox" id="eraser-checkbox" name="eraser-checkbox" value="yes">Eraser
+        <input type="checkbox" id="eraser-checkbox" name="eraser-checkbox" value="yes">
+        Eraser
       </label>
       <label for="rainbow-checkbox">
-        <input type="checkbox" id="rainbow-checkbox" name="rainbow-checkbox" value="yes">Rainbow
+        <input type="checkbox" id="rainbow-checkbox" name="rainbow-checkbox" value="yes">
+        Rainbow
       </label>
-      <label for="grid-size">Choose a grid size: </label>
-      <input type="range" id="grid-size" name="grid-size" min="1" max="64" step="1" value="10">
-      <output class="grid-size-output" for="grid-size"></output>
-      <button id="erase-all">Clear view</button>
+      <button id="erase-all" class="menu-center">Clear view</button>
+      <input type="range" id="grid-size" class="menu-center" name="grid-size" min="1" max="64" step="1" value="10">
+      <output class="grid-size-output menu-center" for="grid-size"></output>
     </div>
     <div class="sketch-container"></div>
   </div>
