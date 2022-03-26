@@ -6,14 +6,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Etch a Sketch</title>
   <link rel="stylesheet" href="./style.css"/>
+  <script src="https://kit.fontawesome.com/4c536a6bd5.js" crossorigin="anonymous"></script>
+  <link rel="shortcut icon" href="site.ico" />
 </head>
 <body>
   <div class="container">
     <div id="menu">
-      <button id="gridSize">ChangeGrid</button>
-      <button id="toggleEraser">Eraser</button>
+      <label for="eraser-selector">
+        <input type="color" id="eraser-selector" name="eraser-selector" value="#ffffff">Eraser selector
+      </label>
+      <label for="brush-selector">
+        <input type="color" id="brush-selector" name="brush-selector" value="#000000">Brush selector
+      </label>
+      <label for="eraser-checkbox">
+        <input type="checkbox" id="eraser-checkbox" name="eraser-checkbox" value="yes">Eraser
+      </label>
+      <label for="rainbow-checkbox">
+        <input type="checkbox" id="rainbow-checkbox" name="rainbow-checkbox" value="yes">Rainbow
+      </label>
+      <label for="grid-size">Choose a grid size: </label>
+      <input type="range" id="grid-size" name="grid-size" min="1" max="64" step="1" value="10">
+      <output class="grid-size-output" for="grid-size"></output>
+      <button id="erase-all">Clear view</button>
     </div>
     <div class="sketch-container"></div>
+  </div>
+  <div class="footer">
+    <p>Copyright © 2022 Alessandro Celotti</p>
+    <a href="https://github.com/cel8" target="_blank"><i class="fab fa-github"></i></a>
   </div>
 </body>
 <script src="./app.js"></script>

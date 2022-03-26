@@ -1,3 +1,81 @@
+// DOM objects
+
+const eraser = document.querySelector('#eraser-checkbox');
+const rainbowBrush = document.querySelector('#rainbow-checkbox');
+const brushColorSelector = document.querySelector('#brush-selector');
+const eraserColorSelector = document.querySelector('#eraser-selector');
+const sketchContainer = document.querySelector(".sketch-container");
+const gridSizeSlider = document.querySelector('#grid-size');
+const gridSizeSliderOutput = document.querySelector('.grid-size-output');
+const clearViewBtn = document.querySelector("#erase-all");
+
+// Boolean state to allow painting/erasing 
+
+let allowPainting = false;
+
+// Add event listeners
+
+gridSizeSlider.addEventListener('input', updateSliderOutput);
+gridSizeSlider.addEventListener('mousemove', updateSliderOutput);
+gridSizeSlider.addEventListener('change', updateGrid);
+sketchContainer.addEventListener('mouseenter', disablePainting);
+sketchContainer.addEventListener('mouseleave', disablePainting);
+clearViewBtn.addEventListener('click', editAllChildren);
+
+// Event functions 
+
+function disablePainting() {
+  allowPainting = false;
+}
+
+function onPaintEvent(event) {
+  if((event.type === 'mouseover') && (allowPainting)) {
+    event.target.style.backgroundColor = chooseBrush();
+  }
+}
+
+function startPainting(event) {
+  allowPainting = true;
+  event.preventDefault();
+  event.target.style.backgroundColor = chooseBrush();
+}
+
+function updateGrid() {
+  buildSketch(gridSizeSlider.value);
+}
+
+function updateSliderOutput() {
+  gridSizeSliderOutput.textContent = `${gridSizeSlider.value} x ${gridSizeSlider.value}`;
+}
+
+// paint management 
+
+function getRandomColor() {
+  const max = 256;
+  return Math.floor(Math.random() * max);
+}
+
+function selectEraserBrush() {
+  return eraserColorSelector.value;
+}
+
+function chooseBrush() {
+  let style;
+  // Choose brush: choose eraser color when eraser is on, otherwise brush color or rainbow
+  if(eraser.checked) {
+    style = eraserColorSelector.value; 
+  } else if(rainbowBrush.checked) {
+    const r = getRandomColor();
+    const g = getRandomColor();
+    const b = getRandomColor();
+    style = `rgb(${r}, ${g}, ${b})`;
+  } else {
+    style = brushColorSelector.value;
+  }
+  return style;
+}
+
+// grid management 
 
 function removeAllChildNodes(parent) {
   while(parent.firstChild) {
@@ -9,33 +87,29 @@ function createChildren(parent, gridSize) {
   for(let i = 0; i < gridSize * gridSize; ++i) {
     let divElement = document.createElement('div');
     divElement.classList.toggle("sketch-item");
-    divElement.addEventListener('click', (e) => {
-
-      e.target.style = eraser ? "background-color: white" : "background-color: black";
-    });
+    divElement.addEventListener('mouseover', onPaintEvent);
+    divElement.addEventListener('mouseup', disablePainting);
+    divElement.addEventListener('mousedown', (e) => startPainting(e));
     parent.appendChild(divElement);
   }
 }
 
+function editAllChildren() {
+  let element = sketchContainer.firstChild;
+  while(element) {
+    element.style.backgroundColor = selectEraserBrush();
+    element = element.nextSibling;
+  }
+}
+
 function buildSketch(gridSize) {
-  const sketchContainer = document.querySelector(".sketch-container");
-  sketchContainer.style.gridTemplateColumns = "repeat(" + gridSize + ", 1fr)";
-  sketchContainer.style.gridTemplateRows = "repeat(" + gridSize + ", 1fr)";
+  sketchContainer.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
+  sketchContainer.style.gridTemplateRows = `repeat(${gridSize}, 1fr)`;
   removeAllChildNodes(sketchContainer);
   createChildren(sketchContainer, gridSize);
 }
 
-const array_size = [ 1, 5, 10, 64 ];
-let index = 0;
+// Default value 
 
-let eraser = false;
-
-document.querySelector("#gridSize").addEventListener('click', () => {
-  buildSketch(array_size[index]);
-  index = (index + 1) % array_size.length;
-});
-
-document.querySelector("#toggleEraser").addEventListener('click', () => {
-  eraser = !eraser;
-})
-
+gridSizeSliderOutput.textContent = `${gridSizeSlider.value} x ${gridSizeSlider.value}`;
+buildSketch(gridSizeSlider.value);
